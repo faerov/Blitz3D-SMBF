@@ -44,6 +44,9 @@ void gxLight::setRange(float r) {
 	if (r < 0.00001f) {
 		r = 0.00001f;
 	}
+
+	if (d3d_light.dvRange == r) return;
+
 	d3d_light.dvRange = r;
 	d3d_light.dvAttenuation0 = 1.0f;
 	d3d_light.dvAttenuation1 = 0.0f;
@@ -51,12 +54,24 @@ void gxLight::setRange(float r) {
 }
 
 void gxLight::setPosition(const float pos[3]) {
+	if (d3d_light.dvPosition.x == pos[0] &&
+		d3d_light.dvPosition.y == pos[1] &&
+		d3d_light.dvPosition.z == pos[2]) {
+		return;
+	}
+
 	d3d_light.dvPosition.x = pos[0];
 	d3d_light.dvPosition.y = pos[1];
 	d3d_light.dvPosition.z = pos[2];
 }
 
 void gxLight::setDirection(const float dir[3]) {
+	if (d3d_light.dvDirection.x == dir[0] &&
+		d3d_light.dvDirection.y == dir[1] &&
+		d3d_light.dvDirection.z == dir[2]) {
+		return;
+	}
+
 	float len = std::sqrt(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
 	if (len > 0.00001f) {
 		d3d_light.dvDirection.x = dir[0] / len;
@@ -71,6 +86,8 @@ void gxLight::setDirection(const float dir[3]) {
 }
 
 void gxLight::setConeAngles(float inner, float outer) {
+	if (d3d_light.dvTheta == inner && d3d_light.dvPhi == outer) return;
+
 	d3d_light.dvTheta = inner;
 	d3d_light.dvPhi = outer;
 }
