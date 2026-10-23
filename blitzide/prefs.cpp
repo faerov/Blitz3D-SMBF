@@ -170,12 +170,12 @@ void Prefs::setDefault()
 	font_tabs = "consolas";
 	font_tabs_height = 10;
 
-	rgb_bkgrnd = RGB(34, 85, 136);
+	rgb_bkgrnd = RGB(15, 15, 15);
 	rgb_string = RGB(0, 255, 102);
 	rgb_ident = RGB(255, 255, 255);
-	rgb_keyword = RGB(170, 255, 255);
-	rgb_comment = RGB(255, 238, 0);
-	rgb_digit = RGB(51, 255, 221);
+	rgb_keyword = RGB(20, 105, 200);
+	rgb_comment = RGB(0, 180, 0);
+	rgb_digit = RGB(255, 255, 255);
 	rgb_default = RGB(238, 238, 238);
 
 	edit_tabs = 4;
