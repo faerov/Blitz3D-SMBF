@@ -236,7 +236,7 @@ void MainFrame::OnDestroy() {
 
 void MainFrame::setTitle(const std::string& s)
 {
-	SetWindowText(("Blitz3D TSS - " + s).c_str());
+	SetWindowText(("Blitz3D SMBF - " + s).c_str());
 	return;
 }
 
@@ -265,6 +265,23 @@ void MainFrame::OnSize(UINT type, int sw, int sh) {
 	}
 
 	tabber.MoveWindow(x, y, w, h);
+}
+
+BOOL MainFrame::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) {
+	LPNMTBCUSTOMDRAW lpTBCustomDraw = (LPNMTBCUSTOMDRAW)lParam;
+
+	if (lpTBCustomDraw->nmcd.hdr.code == NM_CUSTOMDRAW) {
+		if (lpTBCustomDraw->nmcd.dwDrawStage == CDDS_PREERASE || lpTBCustomDraw->nmcd.dwDrawStage == CDDS_PREPAINT) {
+			CRect rect;
+			toolBar.GetClientRect(&rect);
+			CDC* pDC = CDC::FromHandle(lpTBCustomDraw->nmcd.hdc);
+			pDC->FillSolidRect(&rect, RGB(30, 30, 30));
+
+			*pResult = CDRF_NOTIFYITEMDRAW;
+			return TRUE;
+		}
+	}
+	return CFrameWnd::OnNotify(wParam, lParam, pResult);
 }
 
 static const char* bbFilter =
