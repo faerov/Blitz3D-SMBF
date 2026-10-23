@@ -1,6 +1,8 @@
 # Blitz3D SMBF
 
-This is a **fork** of [Blitz3D TSS](https://github.com/Saalvage/Blitz3D), made by [ZiYueCommentary](https://github.com/ZiYueCommentary/Blitz3D).
+Based on Blitz3D TSS
+
+Blitz3D TSS is a **fork** of [Blitz3D TSS](https://github.com/Saalvage/Blitz3D), made by [ZiYueCommentary](https://github.com/ZiYueCommentary/Blitz3D).
 
 中文社区：https://forum.ziyuesinicization.site/t/blitz3d-tss
 
