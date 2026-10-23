@@ -10,6 +10,9 @@
 #include <fstream>
 #include <sstream>
 
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
+
 IMPLEMENT_DYNAMIC(MainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(MainFrame, CFrameWnd)
 	ON_WM_CREATE()
@@ -187,6 +190,13 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	}
 	else {
 		SetCurrentDirectory((prefs.homeDir + "/samples").c_str());
+	}
+
+	HWND hTitleWnd = this->GetSafeHwnd();
+	if (hTitleWnd) {
+		BOOL bDark = TRUE;
+		DwmSetWindowAttribute(hTitleWnd, 20, &bDark, sizeof(bDark));
+		::SetWindowPos(hTitleWnd, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 	}
 
 	return 0;
@@ -989,11 +999,16 @@ void MainFrame::quick_Help() {
 	}
 }
 
-void MainFrame::OnActivate(UINT state, CWnd* other, BOOL min) {
-	CFrameWnd::OnActivate(state, other, min);
-
+void MainFrame::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized) {
+	CFrameWnd::OnActivate(nState, pWndOther, bMinimized);
+	if (nState == WA_ACTIVE || nState == WA_CLICKACTIVE) {
+		HWND hTitleWnd = this->GetSafeHwnd();
+		if (hTitleWnd) {
+			BOOL bDark = TRUE;
+			DwmSetWindowAttribute(hTitleWnd, 20, &bDark, sizeof(bDark));
+		}
+	}
 	if (Editor* e = getEditor()) {
-		if (state != WA_ACTIVE && state != WA_CLICKACTIVE) return;
 		e->SetFocus();
 	}
 }
