@@ -1,6 +1,6 @@
 # Blitz3D SMBF
 
-Based on Blitz3D TSS
+Based on Blitz3D TSS (v1.136).
 
 Blitz3D TSS is a **fork** of [Blitz3D TSS](https://github.com/Saalvage/Blitz3D), made by [ZiYueCommentary](https://github.com/ZiYueCommentary/Blitz3D).
 
