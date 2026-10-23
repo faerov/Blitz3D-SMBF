@@ -66,6 +66,8 @@ public:
 	afx_msg void switchBackup();
 	afx_msg void OnActivate( UINT state,CWnd *other,BOOL min );
 
+	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
+
 private:
 	Tabber tabber;
 	CToolBar toolBar;
