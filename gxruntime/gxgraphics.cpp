@@ -419,6 +419,23 @@ static void pickTexFmts(gxGraphics* g, int hi) {
 }
 
 gxScene* gxGraphics::createScene(int flags) {
+
+	if (HMODULE h = GetModuleHandleA("d3dim700.dll")) {
+		auto pD = (PIMAGE_DOS_HEADER)h;
+		auto pN = (PIMAGE_NT_HEADERS)((char*)pD + pD->e_lfanew);
+		char* b = (char*)h + pN->OptionalHeader.BaseOfCode;
+		char* e = b + pN->OptionalHeader.SizeOfCode - 6;
+		for (; b <= e; b++) {
+			if (*(DWORD*)b == 0x000800B8 && *(b + 4) == 0x00 && *(b + 5) == 0x39) {
+				DWORD old;
+				VirtualProtect(b + 1, 4, PAGE_EXECUTE_READWRITE, &old);
+				*(DWORD*)(b + 1) = 0xFFFFFFFF;
+				VirtualProtect(b + 1, 4, old, &old);
+				break;
+			}
+		}
+	}
+
 	if (scene_set.size()) return 0;
 
 	//get d3d
